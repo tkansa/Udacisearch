@@ -32,16 +32,23 @@ public final class WebCrawlerMain {
   private Profiler profiler;
 
   private void run() throws Exception {
+      // I think this is where it's using the config to determine which WebCrawler is instantiated
     Guice.createInjector(new WebCrawlerModule(config), new ProfilerModule()).injectMembers(this);
 
     CrawlResult result = crawler.crawl(config.getStartPages());
     CrawlResultWriter resultWriter = new CrawlResultWriter(result);
     String path = config.getResultPath();
     if(!path.isEmpty()){
-
+        resultWriter.write(Path.of(path));
     }
     else {
+        //There may be a standard Writer implementation in java.io
+        // (*cough* OutputStreamWriter *cough*) that converts System.out into a
+        // Writer that can be passed to CrawlResultWriter#write(Writer).
+        Writer writer = new OutputStreamWriter(System.out);
 
+        resultWriter.write(writer);
+        writer.flush();
     }
     // TODO: Write the crawl results to a JSON file (or System.out if the file name is empty)
     // TODO: Write the profile data to a text file (or System.out if the file name is empty)
@@ -54,9 +61,9 @@ public final class WebCrawlerMain {
       return;
     }
 
+      System.out.println(args[0]);
     CrawlerConfiguration config = new ConfigurationLoader(Path.of(args[0])).load();
     new WebCrawlerMain(config).run();
-
 
   }
 }
