@@ -29,11 +29,15 @@ public final class WebCrawlerTest {
           + File.separator + "data";
 
   static Stream<Class<?>> provideTestParameters() throws Exception {
-    String[] names = System.getProperty("crawlerImplementations").split("\\s+");
+    /*String[] names = System.getProperty("crawlerImplementations").split("\\s+");
     List<Class<?>> classes = new ArrayList<>();
     for (String name : names) {
       classes.add(Class.forName(name.strip()));
     }
+    return classes.stream();*/
+    List<Class<?>> classes = new ArrayList<>();
+    classes.add(SequentialWebCrawler.class);
+    classes.add(ParallelWebCrawler.class);
     return classes.stream();
   }
 
