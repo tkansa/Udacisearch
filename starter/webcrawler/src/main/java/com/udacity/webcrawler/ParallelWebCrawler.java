@@ -124,6 +124,9 @@ final class ParallelWebCrawler implements WebCrawler {
       if(visitedUrls.contains(url)){
         return;
       }
+      else {
+        visitedUrls.add(url);
+      }
 
       // Parse the url with the parser factory which was written for us
       PageParser.Result result = pageParserFactory.get(url).parse();

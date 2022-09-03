@@ -36,7 +36,7 @@ public final class WebCrawlerTest {
     }
     return classes.stream();*/
     List<Class<?>> classes = new ArrayList<>();
-    classes.add(SequentialWebCrawler.class);
+   classes.add(SequentialWebCrawler.class);
     classes.add(ParallelWebCrawler.class);
     return classes.stream();
   }
