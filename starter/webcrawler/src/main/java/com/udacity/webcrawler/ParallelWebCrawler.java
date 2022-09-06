@@ -121,9 +121,11 @@ final class ParallelWebCrawler implements WebCrawler {
       }
 
       // check to make sure it's not a visited url
+      // if so, exit
       if(visitedUrls.contains(url)){
         return;
       }
+      // otherwise add it to the list
       else {
         visitedUrls.add(url);
       }
