@@ -11,6 +11,8 @@ Q1. Run the web crawler using the configurations located at src/main/config/writ
 
     Why did the parser take more time when run with ParallelWebCrawler?
 
+A:  The profiler measure the total time spent parsing web pages, and the ParallelWebCrawler parsed more pages.
+
 
 Q2. Your manager ran your crawler on her old personal computer, using the configurations from Q1, and she notices that
     the sequential crawler actually outperforms the parallel crawler. She would like to know why.
@@ -21,6 +23,9 @@ Q2. Your manager ran your crawler on her old personal computer, using the config
     (b) Suggest one scenario in which the parallel web crawler will almost certainly perform better than the sequential
         crawler. Why will it perform better?
 
+A:  a) If the managers computer oly had one CPU core, the sequential crawler will be faster.
+
+    b) When someone has a multi-core processor, the work can be spead out, and performed faster.
 
 Q3. Analyze your method profiler through the lens of Aspect Oriented Programming, by answering the following questions:
 
@@ -28,10 +33,22 @@ Q3. Analyze your method profiler through the lens of Aspect Oriented Programming
 
     (b) What are the join points of the Profiler in the web crawler program?
 
+A:  a) Performance profiling
+
+    b) Method invokations
+
 
 Q4. Identify three (3) different design patterns used in this project, and explain which interfaces, classes, and/or
     libraries use or implement those design patterns.
 
     For each pattern, name one thing about the pattern that you LIKED, and one thing you DISLIKED. If you did not like
     anything, you can name two things you disliked.
+
+    Three patterns:
+
+     a) dependency injection, I like that this helps to decouple classes from each other. I don't like that it's doing it "behind the scenes" and you can't "see" what's going on.
+
+     b) builder pattern, I like that this lets you construct an object without setting all the fields. I don't like that it takes a little more typing and setup.
+
+     c) dynamic proxy, I like that you can dynamically do things in code without knowing ahead of build time what's going to happen. I disliked that this was a new concept to me, and I still find the syntax confusing and need more practice.
 
