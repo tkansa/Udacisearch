@@ -44,6 +44,8 @@ final class ProfilingMethodInterceptor implements InvocationHandler {
 
         try {
             result = method.invoke(target, args);
+        }  catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
         } catch (InvocationTargetException e) {
             throw e.getTargetException();
         }
