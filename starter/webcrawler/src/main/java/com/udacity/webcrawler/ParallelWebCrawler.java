@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
  * {@link ForkJoinPool} to fetch and process multiple web pages in parallel.
  */
 final class ParallelWebCrawler implements WebCrawler {
+
   private final Clock clock;
   private final Duration timeout;
   private final int popularWordCount;
@@ -120,14 +121,9 @@ final class ParallelWebCrawler implements WebCrawler {
         }
       }
 
-      // check to make sure it's not a visited url
-      // if so, exit
-      if(visitedUrls.contains(url)){
+      // an atomic / thread safe technique to add URLs to the set
+      if (!visitedUrls.add(url)) {
         return;
-      }
-      // otherwise add it to the list
-      else {
-        visitedUrls.add(url);
       }
 
       // Parse the url with the parser factory which was written for us

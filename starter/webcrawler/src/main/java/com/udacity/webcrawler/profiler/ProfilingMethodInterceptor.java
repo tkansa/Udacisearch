@@ -26,23 +26,13 @@ final class ProfilingMethodInterceptor implements InvocationHandler {
     }
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable, IllegalAccessException {
         // TODO: This method interceptor should inspect the called method to see if it is a profiled
         //       method. For profiled methods, the interceptor should record the start time, then
         //       invoke the method using the object that is being profiled. Finally, for profiled
         //       methods, the interceptor should record how long the method call took, using the
         //       ProfilingState methods.
-        /*if (method.isAnnotationPresent(Profiled.class)) {
-            // start the clock
-            Instant start = clock.instant();
-            // invoke the method
-            method.invoke(proxy, args);
-            //long end = System.currentTimeMillis();
-            Instant end = clock.instant();
-            Duration duration = Duration.between(start, end);
-            profilingState.record(this.target.getClass(), method, duration);
-        }
-        return proxy;*/
+
 
         Object result = proxy;
         Instant start = null;
@@ -51,14 +41,9 @@ final class ProfilingMethodInterceptor implements InvocationHandler {
             start = clock.instant();
 
         }
-        /*else {
-            throw new IllegalArgumentException();
-        }*/
+
         try {
             result = method.invoke(target, args);
-        } catch (IllegalAccessException e) {
-            throw e.getCause();
-            //throw new RuntimeException(e);
         } catch (InvocationTargetException e) {
             throw e.getTargetException();
         }
